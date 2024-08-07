@@ -94,7 +94,7 @@ def move_file(path, target_path):
         os.system(f"mv {path} target_path/")
 
 def sig(path):
-    if input("This commad only works for Macintosh and Linux users, are you sure you want to continue? (Yes)").lower().strip() == "yes":
+    if input("This command only works for Macintosh and Linux users, are you sure you want to continue? (Yes)").lower().strip() == "yes":
         os.system("chmod +x " + path)
 def winlog():
     os.system("dir")
@@ -109,7 +109,7 @@ def scan(path):
                 if not entry.name.startswith('.') and entry.is_file():
                     print(entry.name)
     else:
-        print("Paths doesn't exists!")
+        print("Path doesn't exists!")
 
 def find_file_core(filename, search_path):
     for root, dirs, files in os.walk(search_path):
@@ -238,3 +238,7 @@ def brew_installer():
         print("Successfully installed homebrew: " + os.system("brew --version"))
     else:
         msg()
+#Compiler
+def cmake():
+    if platform.system() == "Windows":
+        webbrowser.open("https://cmake.org/download/")
