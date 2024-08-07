@@ -1,5 +1,8 @@
 import os
 import webbrowser
+import time
+import tqdm
+import platform
 
 history = list()
 
@@ -7,7 +10,7 @@ def delete(path):
     os.remove(path)
 
 def rmdir(path):
-    os.removedirs(path)
+    os.system("rm -ri " + path)
 
 def opendir(dir):
     os.system("cd " + path)
@@ -59,7 +62,7 @@ def afc(path, appendents):
         file.write(new_content)
         print(("New file content:\n" + file.read()))
 
-def ctmcmd(cmd):
+def csmcmd(cmd):
     os.system(cmd)
 
 def rb(path):
@@ -154,5 +157,84 @@ def clear_console():
 def clear_bash():
     os.system("clear")
 
-class apt:
-    def __init___(self)
+def msg():
+    print("This function is not avaliable for Windows users")
+    
+def warning():
+    if platform.system() == 'Windows':
+        return False
+    else:
+        return True
+#APTS
+def update_pkg_lists():
+    if warning():
+        print("Asking for sudo access, which may requires your password.")
+        os.system("sudo apt update")
+    else:
+        msg()
+
+def i_installer(pkg):    
+    if warning():
+        print("Asking for sudo access, which may requires your password.")
+        os.system("sudo apt install " + pkg.strip())
+    else:
+        msg()
+
+def i_uninstaller(pkg):
+    if warning():
+        print("Asking for sudo access, which may requires your password.")
+        os.system("sudo apt remove " + pkg.strip())
+    else:
+        msg()
+
+def upgrade_pkgs():
+    if warning():
+        print("Asking for sudo access, which may requires your password.")
+        os.system("sudo apt upgrade")
+    else:
+        msg()
+
+def search_pkg(pkg):
+    if warning():
+        os.system("apt search " + pkg.strip())
+    else:
+        msg()
+
+def show_details(pkg):
+    if warning():
+        os.system("apt show " + pkg.strip())
+    else:
+        msg()
+
+def cleanup():
+    if warning():
+        print("Asking for sudo access, which may requires your password.")
+        print("Cleaning up packages. This might take a few minutes", end="")
+        for i in "......":
+            print(i)
+            time.sleep(0.5)
+        os.system("clear")
+        os.system("sudo apt clean")
+        os.system("clear")
+        print("Waiting to be finished...")
+        time.sleep(1)
+        for i in tqdm(range(100)):
+            time.sleep(0.1)
+    else:
+        msg()
+#APTS
+
+def brew_installer():
+    if warning():
+        print("Installing Homebrew. The missing package installer.")
+        os.system("/bin/bash -c '$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)'")
+        os.system("clear")
+        print("Exporting to PATH.")
+        time.sleep(1)
+        os.system("export PATH='/home/linuxbrew/.linuxbrew/bin:$PATH'")
+        print("Reloading Bash 80*24")
+        time.sleep(1.5)
+        os.system("source ~/.bashrc")
+        print("Successfully installed homebrew: " + os.system("brew --version"))
+    else:
+        msg()
