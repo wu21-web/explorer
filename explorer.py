@@ -164,16 +164,16 @@ def clear_console():    #DONE
 def clear_bash():   #DONE
     os.system("clear")
 
-def msg():
+def msg():   #CACHED
     print("This function is not avaliable for NONE UNIX users.")
     
-def warning():
+def warning():     #CACHED
     if platform.system() == 'Windows':
         return False
     else:
         return True
 #APTS
-def update_pkg_lists():
+def update_pkg_lists():   #DONE
     if warning():
         print("Asking for sudo access, which may requires your password.")
         os.system("sudo apt update")
@@ -439,5 +439,12 @@ while True:
         history.append("clear bash".capitalize())
         clear_bash()
     #SEP
+    elif bash_prompt.lower().strip() == "update apt lists":
+        history.append("Update Package Lists")     
+        update_pkg_lists()
+    #SEP
+    elif bash_prompt.lower().strip() == "install apt package":
+        history.append("Install APT Package")
+        history.append("")
     else:
         default()
