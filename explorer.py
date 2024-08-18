@@ -180,21 +180,21 @@ def update_pkg_lists():   #DONE
     else:
         msg()
 
-def i_installer(pkg):    
+def i_installer(pkg):      #DONE
     if warning():
         print("Asking for sudo access, which may requires your password.")
         os.system("sudo apt install " + pkg.strip())
     else:
         msg()
 
-def i_uninstaller(pkg):
+def i_uninstaller(pkg):      #DONE
     if warning():
         print("Asking for sudo access, which may requires your password.")
         os.system("sudo apt remove " + pkg.strip())
     else:
         msg()
 
-def upgrade_pkgs():
+def upgrade_pkgs():     #DONE
     if warning():
         print("Asking for sudo access, which may requires your password.")
         os.system("sudo apt upgrade")
@@ -445,6 +445,20 @@ while True:
     #SEP
     elif bash_prompt.lower().strip() == "install apt package":
         history.append("Install APT Package")
-        history.append("")
+        history.append(input("Aguments: "))
+        pkg = history[len(history)-1]
+        i_installer(pkg=pkg)
+    #SEP
+    elif bash_prompt.lower().strip() == "uninstall apt package":
+        history.append("Uninstall APT Package")
+        history.append(input("Aguments: "))
+        pkg = history[len(history)-1]
+        i_uninstaller(pkg=pkg)
+    #SEP
+    elif bash_prompt.lower().strip() == "upgrade package":
+        history.append("Upgrade APT Packages")
+        upgrade_pkgs()
+    #SEP
+    elif bash_prompt.lower().strip() == ""
     else:
         default()
