@@ -201,19 +201,19 @@ def upgrade_pkgs():     #DONE
     else:
         msg()
 
-def search_pkg(pkg):
+def search_pkg(pkg):    #DONE
     if warning():
         os.system("apt search " + pkg.strip())
     else:
         msg()
 
-def show_details(pkg):
+def show_details(pkg):     #DONE
     if warning():
         os.system("apt show " + pkg.strip())
     else:
         msg()
 
-def cleanup():
+def cleanup():    #DONE
     if warning():
         print("Asking for sudo access, which may requires your password.")
         print("Cleaning up packages. This might take a few minutes", end="")
@@ -231,7 +231,7 @@ def cleanup():
         msg()
 #APTS
 
-def brew_installer():
+def brew_installer():     #DONE
     if warning():
         print("Installing Homebrew. The missing package installer.")
         os.system("/bin/bash -c '$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)'")
@@ -246,7 +246,7 @@ def brew_installer():
     else:
         msg()
 #Compiler
-def cmake():
+def cmake():     #DONE
     if platform.system() == "Windows":
         webbrowser.open("https://cmake.org/download/")
     elif platform.system() == "Darwin":
@@ -263,7 +263,7 @@ def cmake():
     else:
         print("You are not on a supported platform, program aborted.")
         
-def tscnt(url, max):
+def tscnt(url, max):    #DONE
     if warning():
         if platform.system() == "Darwin":
             os.system(f"curl -I --max-time {max} {url}")
@@ -459,6 +459,32 @@ while True:
         history.append("Upgrade APT Packages")
         upgrade_pkgs()
     #SEP
-    elif bash_prompt.lower().strip() == ""
+    elif bash_prompt.lower().strip() == "search package":
+        history.append("Search Package List")
+        history.append(input("Arguments: "))
+        pkg = history[len(history)-1]
+        search_pkg(pkg)
+    #SEP
+    elif bash_prompt.lower().strip() == "show package details":
+        history.append("Show Package Details")
+        history.append(input("Arguments: "))
+        pkg = history[len(history)-1]
+        show_details(pkg=pkg)
+    #SEP
+    elif bash_prompt.lower().strip() == "apt cleanup":
+        history.append("Cleanup APT Packages")
+        cleanup()
+    #SEP
+    elif bash_prompt.lower().strip() == "install homebrew" or bash_prompt.lower().strip() == "brew.sh install":
+        history.append("Install Homebrew")
+        brew_installer()
+    #SEP
+    elif bash_prompt.lower().strip() == "install cmake":
+        history.append("Install CMAKE")
+        cmake()
+    #SEP
+    elif bash_prompt.lower().strip() == "Test Connection":
+        history.append("Check Connectivity between Sites")
+        history.append(input("#"))  #EDIT
     else:
         default()
