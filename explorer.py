@@ -107,7 +107,7 @@ def winlog():    #DONE
     os.system("dir")
 
 def exi():   #DONE
-    exit("Program exited with a value of 0.", 0)
+    exit(0)
 
 def scan(path):    #DONE
     if os.path.exists(path):
@@ -271,20 +271,20 @@ def tscnt(url, max):    #DONE
             i_installer("curl")
             os.system(f"curl -I --max-time {max} {url}")
         else:
-            print("Platform not supported. Program aborted.")
+            pass
     else:
-        print("Platform not avaliable.")
+        os.system("ping " + url)
 
-def default():
+def default():    #EMPTY
     print("Command doesn't exist.")
 
-def check_empty(string):
+def check_empty(string):        #NONE
     if string == "":
         return True
     else:
         return False
 
-def record():
+def record():    #DONE
     print(history)
 
 while True:
@@ -485,6 +485,14 @@ while True:
     #SEP
     elif bash_prompt.lower().strip() == "Test Connection":
         history.append("Check Connectivity between Sites")
-        history.append(input("#"))  #EDIT
+        history.append(input("Url: "))
+        url = history[len(history)-1]
+        history.append(input("Max time: "))
+        max = history[len(history)-1]
+        tscnt(url=url, max=max)
+    #SEP
+    elif bash_prompt.lower().strip() == "list record":
+        history.append("List Command History")
+        history()
     else:
         default()
